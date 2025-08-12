@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كتالوج شركة محي الدين للأبواب الحديثة</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Modern Wood & Neutrals -->
+    <!-- Application Structure Plan: The SPA uses a top-down structure starting with a hero section for branding, followed by the core interactive product catalog. The catalog is designed with a tab-based navigation system (using buttons) to allow users to filter products by category instantly. This is more user-friendly and engaging than a static, linear list. It prevents information overload and lets users focus on what interests them. The structure concludes with sections for additional services, an LLM-powered decor consultant, and contact details, providing a complete overview in a single, scrollable page. This design prioritizes intuitive exploration and quick access to information. -->
+    <!-- Visualization & Content Choices: Report Info: Product categories and details. -> Goal: Organize and Compare. -> Presentation Method: Interactive product grid with filter buttons. -> Interaction: Clicking a category button dynamically updates the displayed product cards. -> Justification: This transforms a passive catalog into an active exploration tool, which is a superior user experience for a digital medium. -> Library/Method: Vanilla JavaScript for filtering logic and DOM manipulation, Tailwind CSS for styling the cards and layout. Unicode characters are used for specification icons for a lightweight and clean look. A new section is added for an LLM-powered decor consultant. -> Goal: Provide personalized recommendations. -> Presentation Method: Text input and output. -> Interaction: User enters a decor description and clicks a button to get a personalized text response from the Gemini API. -> Justification: This adds a high-value, interactive and personalized element that goes beyond a static catalog. -> Library/Method: Vanilla JavaScript for API call and UI updates. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #FDFBF7;
+        }
+        .bg-hero {
+            background-image: url('https://placehold.co/1600x900/000000/FFFFFF?text=');
+            background-size: cover;
+            background-position: center;
+        }
+        .active-tab {
+            background-color: #A67B5B !important;
+            color: #FFFFFF !important;
+            border-color: #A67B5B !important;
+        }
+        .tab-button {
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-[#FDFBF7] text-[#3A3532]">
+
+    <!-- Header & Hero Section -->
+    <header id="home" class="relative h-[60vh] min-h-[400px] bg-hero flex items-center justify-center text-white text-center">
+        <div class="absolute inset-0 bg-black/60"></div>
+        <div class="relative z-10 p-4">
+            <h1 class="text-4xl md:text-6xl font-bold mb-4">شركة محي الدين للأبواب الحديثة</h1>
+            <p class="text-lg md:text-2xl font-light">لأن منزلك يستحق الأفضل، نصنع الأبواب التي تحكي قصة أناقتك.</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 bg-[#FDFBF7]/90 backdrop-blur-sm z-20 shadow-md">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-center py-3 space-x-4 space-x-reverse">
+                <a href="#home" class="px-3 py-2 text-sm md:text-base text-[#3A3532] hover:text-[#A67B5B] transition-colors">الرئيسية</a>
+                <a href="#products" class="px-3 py-2 text-sm md:text-base text-[#3A3532] hover:text-[#A67B5B] transition-colors">منتجاتنا</a>
+                <a href="#services" class="px-3 py-2 text-sm md:text-base text-[#3A3532] hover:text-[#A67B5B] transition-colors">خدمات إضافية</a>
+                <a href="#ai-consultant" class="px-3 py-2 text-sm md:text-base text-[#3A3532] hover:text-[#A67B5B] transition-colors">مستشار الديكور</a>
+                <a href="#contact" class="px-3 py-2 text-sm md:text-base text-[#3A3532] hover:text-[#A67B5B] transition-colors">تواصل معنا</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-12 md:py-20">
+
+        <!-- Products Section -->
+        <section id="products" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#A67B5B] mb-2">كتالوج المنتجات</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">تصفح مجموعتنا المتنوعة من الأبواب الداخلية المصممة لتناسب كل الأذواق والاحتياجات. اختر الفئة أدناه لعرض التصميمات المتاحة.</p>
+            </div>
+
+            <!-- Category Filters -->
+            <div id="category-tabs" class="flex flex-wrap justify-center gap-2 md:gap-4 mb-10">
+                <!-- Tabs will be generated by JS -->
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Products will be generated by JS -->
+            </div>
+        </section>
+
+        <!-- Additional Services Section -->
+        <section id="services" class="mt-20 md:mt-32 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#A67B5B] mb-2">حلول متكاملة لمنزلك</h2>
+                <p class="text-lg text-gray-600">بالإضافة إلى الأبواب، نقدم مجموعة واسعة من المنتجات وأعمال الديكور.</p>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-8 text-center">
+                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="font-bold text-lg">أبواب مصفحة</h3>
+                    <p class="text-sm text-gray-500">(تركي-صيني-مصري)</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="font-bold text-lg">شبابيك وبلكونات</h3>
+                     <p class="text-sm text-gray-500">(UPVC وألومنيوم)</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="font-bold text-lg">أرضيات باركيه</h3>
+                     <p class="text-sm text-gray-500">(HDF)</p>
+                </div>
+                 <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="font-bold text-lg">بديل الخشب والرخام</h3>
+                     <p class="text-sm text-gray-500">(ديكورات عصرية)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Decor Consultant Section -->
+        <section id="ai-consultant" class="mt-20 md:mt-32 scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl md:text-4xl font-bold text-[#A67B5B] mb-2">مستشار الديكور الذكي ✨</h2>
+                <p class="text-lg text-gray-600 max-w-2xl mx-auto">صف لنا غرفتك أو النمط الذي تفضله وسنقدم لك اقتراحات مخصصة لأبوابنا مع نصائح ديكور إضافية.</p>
+            </div>
+            <div class="bg-white p-6 md:p-8 rounded-lg shadow-md max-w-3xl mx-auto">
+                <textarea id="decor-prompt" class="w-full p-4 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-[#A67B5B] transition-colors h-32 text-right" placeholder="مثال: أريد بابًا لغرفة معيشة بستايل عصري بألوان فاتحة ودافئة."></textarea>
+                <button id="generate-decor" class="mt-4 w-full bg-[#A67B5B] text-white font-bold py-3 px-6 rounded-full hover:bg-[#8A634C] transition-colors">
+                    ✨ احصل على اقتراحات
+                </button>
+                <div id="decor-response" class="mt-6 p-4 bg-gray-50 rounded-lg text-gray-800 hidden text-right">
+                    <p id="response-text"></p>
+                </div>
+                <div id="loading-indicator" class="mt-4 text-center text-gray-600 hidden">
+                    جاري التفكير في الاقتراحات...
+                </div>
+            </div>
+        </section>
+        
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-[#3A3532] text-white pt-16 pb-8 scroll-mt-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold mb-8">تواصل معنا</h2>
+            <div class="flex flex-col md:flex-row justify-around items-center gap-10">
+                <div class="w-full md:w-1/2">
+                    <h3 class="text-xl font-bold text-[#A67B5B] mb-4">الفروع</h3>
+                    <div class="space-y-3">
+                        <p>📍 المحلة الكبرى - شارع سعد زغلول بجوار مسجد المتولي - عمارة محمد محي الدين</p>
+                        <p>📍 المحلة الكبرى - شارع سعد زغلول بالقرب من حلقة السمك أمام مطعم رمضان للمكرونة</p>
+                        <p>✨ انتظرونا قريبًا</p>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2">
+                    <h3 class="text-xl font-bold text-[#A67B5B] mb-4">أرقام التواصل</h3>
+                    <div class="space-y-2 text-lg">
+                        <p>📞 <a href="tel:01024209955" class="hover:underline">01024209955</a></p>
+                        <p>📞 <a href="tel:01228066083" class="hover:underline">01228066083</a></p>
+                        <p>📞 <a href="tel:01221702806" class="hover:underline">01221702806</a></p>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-600 mt-12 pt-6">
+                <p>&copy; 2024 شركة محي الدين للأبواب الحديثة. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const productsData = [
+            {
+                category: 'أبواب غرف سادة',
+                name: 'باب غرفة سادة',
+                image: 'https://placehold.co/600x400/D6CCC2/3A3532?text=باب+سادة',
+                description: 'تصميم بسيط وأنيق يضيف لمسة من الهدوء والرقي لمساحتك.',
+                specs: [
+                    { icon: '🪵', text: 'خامات: خشب طبيعي معالج' },
+                    { icon: '🎨', text: 'الألوان: بني، بيج، أبيض، أو حسب الطلب' },
+                    { icon: '📏', text: 'المقاسات: قياسية أو تفصيل' },
+                    { icon: '💧', text: 'مقاوم للماء' },
+                    { icon: '🔊', text: 'عازل للصوت' },
+                    { icon: '🛡️', text: 'ضمان طويل الأمد' }
+                ]
+            },
+            {
+                category: 'أبواب غرف حفر',
+                name: 'باب غرفة حفر كلاسيك',
+                image: 'https://placehold.co/600x400/C8B8A8/3A3532?text=باب+حفر',
+                description: 'نقوشات فنية محفورة بدقة عالية تمنح منزلك طابعاً من الفخامة والأصالة.',
+                specs: [
+                    { icon: '✨', text: 'تصاميم: متعددة كلاسيكية وعصرية' },
+                    { icon: '💎', text: 'جودة: نحت دقيق بتقنية CNC' },
+                    { icon: '🌟', text: 'تشطيبات: فاخرة ذهبية أو نحاسية' },
+                    { icon: '🛡️', text: 'مقاوم للخدش' },
+                    { icon: '🪵', text: 'خامات متينة' }
+                ]
+            },
+            {
+                category: 'أبواب غرف لونين',
+                name: 'باب غرفة لونين مودرن',
+                image: 'https://placehold.co/600x400/E3D5CA/3A3532?text=باب+لونين',
+                description: 'دمج جريء بين لونين لإطلالة عصرية تتناغم مع الديكورات الحديثة.',
+                specs: [
+                    { icon: '🎨', text: 'دمج ألوان عصري' },
+                    { icon: '🏠', text: 'مناسب للديكورات الحديثة' },
+                    { icon: '🖌️', text: 'ألوان ثابتة لا تتغير' },
+                    { icon: '🧼', text: 'سهولة الصيانة والتنظيف' },
+                    { icon: '📐', text: 'تصميم مخصص حسب الطلب' }
+                ]
+            },
+            {
+                category: 'أبواب غرف استانلس',
+                name: 'باب غرفة بتطعيم استانلس',
+                image: 'https://placehold.co/600x400/BCAEA0/3A3532?text=باب+استانلس',
+                description: 'مزيج أنيق بين دفء الخشب وبريق الاستانلس لمظهر فاخر وعمر طويل.',
+                specs: [
+                    { icon: '🔩', text: 'مقاومة عالية للصدأ' },
+                    { icon: '💡', text: 'تصميم أنيق وعصري' },
+                    { icon: '⏳', text: 'عمر افتراضي طويل' },
+                    { icon: '🔥', text: 'مقاوم للحرارة' },
+                    { icon: '✨', text: 'تشطيب مصقول ولامع' }
+                ]
+            },
+            {
+                category: 'أبواب غرف أكريلك',
+                name: 'باب غرفة أكريلك لامع',
+                image: 'https://placehold.co/600x400/A9998D/3A3532?text=باب+أكريلك',
+                description: 'مظهر زجاجي جذاب وسطح لامع يضفي إشراقة وحداثة على أي غرفة.',
+                specs: [
+                    { icon: '💎', text: 'مظهر عصري لامع' },
+                    { icon: '🧼', text: 'سهولة فائقة في التنظيف' },
+                    { icon: '🎨', text: 'ألوان متنوعة وزاهية' },
+                    { icon: '💧', text: 'مضاد للماء والرطوبة' },
+                    { icon: '🪶', text: 'خفيف الوزن وسهل التركيب' }
+                ]
+            }
+        ];
+
+        const productsGrid = document.getElementById('products-grid');
+        const categoryTabsContainer = document.getElementById('category-tabs');
+        const generateDecorBtn = document.getElementById('generate-decor');
+        const decorPromptTextarea = document.getElementById('decor-prompt');
+        const decorResponseDiv = document.getElementById('decor-response');
+        const responseTextP = document.getElementById('response-text');
+        const loadingIndicator = document.getElementById('loading-indicator');
+
+        const categories = ['الكل', ...new Set(productsData.map(p => p.category))];
+
+        function renderTabs() {
+            categories.forEach((category, index) => {
+                const tabButton = document.createElement('button');
+                tabButton.textContent = category;
+                tabButton.className = 'tab-button px-4 py-2 text-sm md:text-base font-semibold border-2 border-gray-300 rounded-full hover:bg-[#A67B5B] hover:text-white hover:border-[#A67B5B]';
+                if (index === 0) {
+                    tabButton.classList.add('active-tab');
+                }
+                tabButton.addEventListener('click', () => {
+                    document.querySelector('.active-tab').classList.remove('active-tab');
+                    tabButton.classList.add('active-tab');
+                    renderProducts(category);
+                });
+                categoryTabsContainer.appendChild(tabButton);
+            });
+        }
+
+        function renderProducts(category = 'الكل') {
+            productsGrid.innerHTML = '';
+            const filteredProducts = category === 'الكل' 
+                ? productsData 
+                : productsData.filter(p => p.category === category);
+
+            filteredProducts.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'bg-white rounded-lg shadow-md overflow-hidden transform hover:-translate-y-2 transition-transform duration-300';
+                
+                let specsHTML = product.specs.map(spec => `
+                    <li class="flex items-center">
+                        <span class="ml-2">${spec.icon}</span>
+                        <span>${spec.text}</span>
+                    </li>
+                `).join('');
+
+                productCard.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 text-[#A67B5B]">${product.name}</h3>
+                        <p class="text-gray-600 mb-4 h-12">${product.description}</p>
+                        <ul class="space-y-2 text-sm text-gray-700">
+                            ${specsHTML}
+                        </ul>
+                    </div>
+                `;
+                productsGrid.appendChild(productCard);
+            });
+        }
+
+        const handleGenerateDecor = async () => {
+            const userPrompt = decorPromptTextarea.value;
+            if (!userPrompt) {
+                responseTextP.textContent = 'من فضلك أدخل وصفًا لغرفتك أو النمط الذي تفضله.';
+                decorResponseDiv.classList.remove('hidden');
+                return;
+            }
+
+            loadingIndicator.classList.remove('hidden');
+            generateDecorBtn.disabled = true;
+            decorResponseDiv.classList.add('hidden');
+
+            const prompt = `أنت مستشار ديكور داخلي لشركة محي الدين للأبواب الحديثة. بناءً على وصف العميل التالي: "${userPrompt}"، قدم اقتراحًا موجزًا ومفصلاً للديكور الداخلي، ثم اختر بابًا واحدًا من فئات أبواب الشركة (أبواب غرف سادة، أبواب غرف حفر، أبواب غرف لونين، أبواب غرف استانلس، أبواب غرف أكريلك) وتأكد من ذكر اسمه بالضبط. اشرح لماذا هذا الباب مناسب لهذا النمط. اجعل الاقتراح باللغة العربية.`;
+
+            let chatHistory = [];
+            chatHistory.push({ role: "user", parts: [{ text: prompt }] });
+            const payload = { contents: chatHistory };
+            const apiKey = "";
+            const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+            const maxRetries = 5;
+            let retryCount = 0;
+            let delay = 1000;
+
+            while (retryCount < maxRetries) {
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error('API response not ok');
+                    }
+
+                    const result = await response.json();
+                    const text = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (text) {
+                        responseTextP.textContent = text;
+                        decorResponseDiv.classList.remove('hidden');
+                        break; // Success, exit loop
+                    } else {
+                        throw new Error('No content in API response');
+                    }
+
+                } catch (error) {
+                    retryCount++;
+                    if (retryCount >= maxRetries) {
+                        responseTextP.textContent = 'عذرًا، فشلت المحاولة بعد عدة محاولات. يرجى المحاولة لاحقًا.';
+                        decorResponseDiv.classList.remove('hidden');
+                    } else {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2;
+                    }
+                }
+            }
+
+            loadingIndicator.classList.add('hidden');
+            generateDecorBtn.disabled = false;
+        };
+
+        generateDecorBtn.addEventListener('click', handleGenerateDecor);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderTabs();
+            renderProducts();
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
